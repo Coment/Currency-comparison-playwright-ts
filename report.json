@@ -1,0 +1,218 @@
+[dotenv@17.2.1] injecting env (2) from .env -- tip: 📡 version env with Radar: https://dotenvx.com/radar
+
+Running 2 tests using 2 workers
+
+[1A[2K[dotenv@17.2.1] injecting env (0) from .env -- tip: 📡 auto-backup env with Radar: https://dotenvx.com/radar
+
+[1A[2K[dotenv@17.2.1] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+
+[1A[2K[1/2] [chromium] › tests\FinNbuKurs.spec.ts:62:5 › Перевірка USD міжбанк
+[1A[2K[2/2] [chromium] › tests\FinNbuKurs.spec.ts:9:5 › Check MinFin page
+[1A[2K[chromium] › tests\FinNbuKurs.spec.ts:9:5 › Check MinFin page
+[36m[INFO] 2025-07-28T18:03:46.215Z — Test started for MinFin currency page[39m
+
+[1A[2KDEBUG TITLE = Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін
+
+[1A[2K[36m[INFO] 2025-07-28T18:03:46.269Z — Page title is: Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін[39m
+
+[1A[2KENV: https://minfin.com.ua uk
+
+[1A[2K[36m[INFO] 2025-07-28T18:03:46.283Z — Page title is: Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін[39m
+
+[1A[2KUSD курс: 41,489
+						-0,011
+					
+
+[1A[2KExcel-файл збережено: output.xlsx
+
+[1A[2K[chromium] › tests\FinNbuKurs.spec.ts:62:5 › Перевірка USD міжбанк
+USD міжбанк: [object Promise]
+
+[1A[2KUSD міжбанк: 41,7200-0.04
+
+[1A[2K  2 passed (32.2s)
+{
+  "config": {
+    "configFile": "G:\\Develop\\Develop\\Playwright\\playwright.config.ts",
+    "rootDir": "G:/Develop/Develop/Playwright/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "line"
+      ],
+      [
+        "json"
+      ],
+      [
+        "G:\\Develop\\Develop\\Playwright\\node_modules\\allure-playwright\\dist\\cjs\\index.js"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "G:/Develop/Develop/Playwright/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "G:/Develop/Develop/Playwright/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.54.1",
+    "workers": 8,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "FinNbuKurs.spec.ts",
+      "file": "FinNbuKurs.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Check MinFin page",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4750,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "\u001b[36m[INFO] 2025-07-28T18:03:46.215Z — Test started for MinFin currency page\u001b[39m\n"
+                    },
+                    {
+                      "text": "DEBUG TITLE = Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін\n"
+                    },
+                    {
+                      "text": "\u001b[36m[INFO] 2025-07-28T18:03:46.269Z — Page title is: Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін\u001b[39m\n"
+                    },
+                    {
+                      "text": "ENV: https://minfin.com.ua uk\n"
+                    },
+                    {
+                      "text": "\u001b[36m[INFO] 2025-07-28T18:03:46.283Z — Page title is: Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін\u001b[39m\n"
+                    },
+                    {
+                      "text": "USD курс: 41,489\n\t\t\t\t\t\t-0,011\n\t\t\t\t\t\n"
+                    },
+                    {
+                      "text": "Excel-файл збережено: output.xlsx\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-07-28T18:03:42.235Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "Full test date",
+                      "contentType": "text/plain",
+                      "body": "MjguMDcuMjAyNQ=="
+                    },
+                    {
+                      "name": "Page title",
+                      "contentType": "text/plain",
+                      "body": "0JrRg9GA0YEg0LLQsNC70Y7RgiDQvdCwIDI4LjA3LjIwMjU6INC60YPRgNGBINC00L7Qu9Cw0YDQsCwg0ZTQstGA0L4g0YLQsCDRltC90YjQuNGFINCy0LDQu9GO0YIgLSDQnNGW0L3RhNGW0L0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dafb6687f01a00018c8e-d99ee677a570ca4533ed",
+          "file": "FinNbuKurs.spec.ts",
+          "line": 9,
+          "column": 5
+        },
+        {
+          "title": "Перевірка USD міжбанк",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 30384,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "USD міжбанк: [object Promise]\n"
+                    },
+                    {
+                      "text": "USD міжбанк: 41,7200-0.04\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-07-28T18:03:42.232Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dafb6687f01a00018c8e-999d8054f09e51cbd1d6",
+          "file": "FinNbuKurs.spec.ts",
+          "line": 62,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-07-28T18:03:41.024Z",
+    "duration": 32237.061,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
