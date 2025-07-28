@@ -1,0 +1,43 @@
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+out/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+*.zip     # наприклад traces.zip
+*.webm    # відео з тестів
+
+# Allure
+allure-results/
+allure-report/
+
+# VSCode
+.vscode/
+
+# Coverage
+coverage/
+.nyc_output/
