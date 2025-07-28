@@ -22,6 +22,8 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "allure-js-commons": "^3.3.2",
+    "chalk": "^5.4.1",
     "dotenv": "^17.2.1",
     "exceljs": "^4.4.0"
   }

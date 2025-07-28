@@ -2,17 +2,26 @@ import { test, expect } from '../helpers/allureHelper';
 import * as ExcelJS from 'exceljs';
 import { baseUrl, lang } from '../helpers/envVars';
 import { MinFinPage } from '../pages/MinFin';
+import { Logger } from '../helpers/logger';
 
 
 
 test('Check MinFin page', async ({ page }) => {
 
   const today = new Date();
+  // TODO: Move the date formatting to a helper function
+  // to avoid duplication in other tests.
   const date = `${String(today.getDate()).padStart(2, '0')}.${String(today.getMonth() + 1).padStart(2, '0')}.${today.getFullYear()}`;
-
-  const lang = process.env.APP_LANG ?? 'en';
-  console.log('ENV:', baseUrl, lang);
   await page.goto('https://minfin.com.ua/ua/currency/');
+  Logger.info(`Test started for MinFin currency page`);
+  Logger.attachText('Full test date', date);
+  const title = await page.title();
+  console.log('DEBUG TITLE =', title);
+  Logger.info(`Page title is: ${title || 'Empty or undefined'}`);
+  Logger.attachText('Page title', title || 'Empty or undefined');
+  console.log('ENV:', baseUrl, lang);
+  Logger.info(`Page title is: ${title}`);
+ 
 
   if (lang === 'uk') {
     await expect(page.getByRole('heading', { name: 'Міжбанк' })).toBeVisible();
@@ -23,14 +32,15 @@ test('Check MinFin page', async ({ page }) => {
     await expect(page.getByText('Interbank')).toBeVisible();
   }
 
-  await page.goto('https://kurs.com.ua/');
+  await page.goto('https://kurs.com.ua/', { waitUntil: 'domcontentloaded', timeout: 10000 });
 
   const usdValueKurs = await page.locator(
     '//tbody[@class="text-right"]/tr/td/a[contains(., "USD")]/../following-sibling::td[1]/div'
   ).textContent();
   console.log(`USD курс: ${usdValueKurs}`);
 
-//TODO: Add ExcelJS workbook creation to the helper file
+
+  //TODO: Add ExcelJS workbook creation to the helper file
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet('Sales Data');
 
@@ -50,7 +60,7 @@ test('Check MinFin page', async ({ page }) => {
 
 
 test('Перевірка USD міжбанк', async ({ page }) => {
-  const minFin = new MinFinPage(page); 
+  const minFin = new MinFinPage(page);
 
   await minFin.goto('');
 
