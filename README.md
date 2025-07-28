@@ -1,2 +1,2 @@
-# -urrency-comparison-playwright-ts
+# Currency-comparison-playwright-ts
 Сurrency-comparison-playwright-ts
