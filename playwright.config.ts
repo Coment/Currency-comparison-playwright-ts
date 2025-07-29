@@ -27,7 +27,7 @@ export default defineConfig({
   expect: {
     timeout: 3000,  // 3 seconds for expect assertions
   }, 
-  /* Use the default reporter */
+  /* Use the default reporter ['allure-playwright'],*/
   reporter: [
     ['html'],
     ['allure-playwright'],

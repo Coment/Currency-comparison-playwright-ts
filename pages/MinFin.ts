@@ -23,7 +23,6 @@ export class MinFinPage {
     async getUsdValue(): Promise<string | null> {
         //await this.page.waitForSelector(this.usdValueLocator);
         await this.usdValueLocator.first().waitFor();
-        console.log(`USD міжбанк: ${this.usdValueLocator.first().textContent()}`);
         return await this.usdValueLocator.first().textContent();
     }
 

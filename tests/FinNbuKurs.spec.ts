@@ -20,7 +20,7 @@ test('Check MinFin page', async ({ page }) => {
   Logger.info(`Page title is: ${title || 'Empty or undefined'}`);
   Logger.attachText('Page title', title || 'Empty or undefined');
   console.log('ENV:', baseUrl, lang);
-  Logger.info(`Page title is: ${title}`);
+
  
 
   if (lang === 'uk') {
@@ -65,10 +65,10 @@ test('Перевірка USD міжбанк', async ({ page }) => {
   await minFin.goto('');
 
   const usd = await minFin.getUsdValue();
-
-  console.log(`USD міжбанк: ${usd}`);
+  Logger.info(`USD міжбанк: ${usd}`);
 
   expect(usd).not.toBeNull();
+
 });
 
 

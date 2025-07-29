@@ -1,36 +1,3 @@
-[dotenv@17.2.1] injecting env (2) from .env -- tip: 📡 version env with Radar: https://dotenvx.com/radar
-
-Running 2 tests using 2 workers
-
-[1A[2K[dotenv@17.2.1] injecting env (0) from .env -- tip: 📡 auto-backup env with Radar: https://dotenvx.com/radar
-
-[1A[2K[dotenv@17.2.1] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
-
-[1A[2K[1/2] [chromium] › tests\FinNbuKurs.spec.ts:62:5 › Перевірка USD міжбанк
-[1A[2K[2/2] [chromium] › tests\FinNbuKurs.spec.ts:9:5 › Check MinFin page
-[1A[2K[chromium] › tests\FinNbuKurs.spec.ts:9:5 › Check MinFin page
-[36m[INFO] 2025-07-28T18:03:46.215Z — Test started for MinFin currency page[39m
-
-[1A[2KDEBUG TITLE = Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін
-
-[1A[2K[36m[INFO] 2025-07-28T18:03:46.269Z — Page title is: Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін[39m
-
-[1A[2KENV: https://minfin.com.ua uk
-
-[1A[2K[36m[INFO] 2025-07-28T18:03:46.283Z — Page title is: Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін[39m
-
-[1A[2KUSD курс: 41,489
-						-0,011
-					
-
-[1A[2KExcel-файл збережено: output.xlsx
-
-[1A[2K[chromium] › tests\FinNbuKurs.spec.ts:62:5 › Перевірка USD міжбанк
-USD міжбанк: [object Promise]
-
-[1A[2KUSD міжбанк: 41,7200-0.04
-
-[1A[2K  2 passed (32.2s)
 {
   "config": {
     "configFile": "G:\\Develop\\Develop\\Playwright\\playwright.config.ts",
@@ -49,13 +16,18 @@ USD міжбанк: [object Promise]
     "preserveOutput": "always",
     "reporter": [
       [
-        "line"
+        "html",
+        null
       ],
       [
-        "json"
+        "G:\\Develop\\Develop\\Playwright\\node_modules\\allure-playwright\\dist\\cjs\\index.js",
+        null
       ],
       [
-        "G:\\Develop\\Develop\\Playwright\\node_modules\\allure-playwright\\dist\\cjs\\index.js"
+        "json",
+        {
+          "outputFile": "report.json"
+        }
       ]
     ],
     "reportSlowTests": {
@@ -111,26 +83,23 @@ USD міжбанк: [object Promise]
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 4750,
+                  "duration": 5863,
                   "errors": [],
                   "stdout": [
                     {
-                      "text": "\u001b[36m[INFO] 2025-07-28T18:03:46.215Z — Test started for MinFin currency page\u001b[39m\n"
+                      "text": "\u001b[36m[INFO] 2025-07-29T18:18:54.246Z — Test started for MinFin currency page\u001b[39m\n"
                     },
                     {
-                      "text": "DEBUG TITLE = Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін\n"
+                      "text": "DEBUG TITLE = Курс валют на 29.07.2025: курс долара, євро та інших валют - Мінфін\n"
                     },
                     {
-                      "text": "\u001b[36m[INFO] 2025-07-28T18:03:46.269Z — Page title is: Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін\u001b[39m\n"
+                      "text": "\u001b[36m[INFO] 2025-07-29T18:18:54.320Z — Page title is: Курс валют на 29.07.2025: курс долара, євро та інших валют - Мінфін\u001b[39m\n"
                     },
                     {
                       "text": "ENV: https://minfin.com.ua uk\n"
                     },
                     {
-                      "text": "\u001b[36m[INFO] 2025-07-28T18:03:46.283Z — Page title is: Курс валют на 28.07.2025: курс долара, євро та інших валют - Мінфін\u001b[39m\n"
-                    },
-                    {
-                      "text": "USD курс: 41,489\n\t\t\t\t\t\t-0,011\n\t\t\t\t\t\n"
+                      "text": "USD курс: 41,495\n\t\t\t\t\t\t+0,005\n\t\t\t\t\t\n"
                     },
                     {
                       "text": "Excel-файл збережено: output.xlsx\n"
@@ -138,18 +107,18 @@ USD міжбанк: [object Promise]
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-07-28T18:03:42.235Z",
+                  "startTime": "2025-07-29T18:18:49.048Z",
                   "annotations": [],
                   "attachments": [
                     {
                       "name": "Full test date",
                       "contentType": "text/plain",
-                      "body": "MjguMDcuMjAyNQ=="
+                      "body": "MjkuMDcuMjAyNQ=="
                     },
                     {
                       "name": "Page title",
                       "contentType": "text/plain",
-                      "body": "0JrRg9GA0YEg0LLQsNC70Y7RgiDQvdCwIDI4LjA3LjIwMjU6INC60YPRgNGBINC00L7Qu9Cw0YDQsCwg0ZTQstGA0L4g0YLQsCDRltC90YjQuNGFINCy0LDQu9GO0YIgLSDQnNGW0L3RhNGW0L0="
+                      "body": "0JrRg9GA0YEg0LLQsNC70Y7RgiDQvdCwIDI5LjA3LjIwMjU6INC60YPRgNGBINC00L7Qu9Cw0YDQsCwg0ZTQstGA0L4g0YLQsCDRltC90YjQuNGFINCy0LDQu9GO0YIgLSDQnNGW0L3RhNGW0L0="
                     }
                   ]
                 }
@@ -178,19 +147,16 @@ USD міжбанк: [object Promise]
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 30384,
+                  "duration": 5558,
                   "errors": [],
                   "stdout": [
                     {
-                      "text": "USD міжбанк: [object Promise]\n"
-                    },
-                    {
-                      "text": "USD міжбанк: 41,7200-0.04\n"
+                      "text": "\u001b[36m[INFO] 2025-07-29T18:18:54.619Z — USD міжбанк: 41,81000.09\u001b[39m\n"
                     }
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-07-28T18:03:42.232Z",
+                  "startTime": "2025-07-29T18:18:49.037Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -208,8 +174,8 @@ USD міжбанк: [object Promise]
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-07-28T18:03:41.024Z",
-    "duration": 32237.061,
+    "startTime": "2025-07-29T18:18:47.795Z",
+    "duration": 7792.628000000001,
     "expected": 2,
     "skipped": 0,
     "unexpected": 0,
