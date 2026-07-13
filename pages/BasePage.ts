@@ -41,4 +41,19 @@ export class BasePage {
 
     return match[0];
   }
+
+  protected parseRate(rawValue: string): number {
+    const normalized = rawValue
+      .replace(/\s/g, '')
+      .replace(/,(?=.*\.)/g, '')
+      .replace(',', '.')
+      .replace(/[^\d.-]/g, '');
+    const value = Number(normalized);
+
+    if (!Number.isFinite(value) || value <= 0) {
+      throw new Error(`Invalid exchange rate: "${rawValue}"`);
+    }
+
+    return value;
+  }
 }

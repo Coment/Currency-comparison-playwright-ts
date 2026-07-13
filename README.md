@@ -9,6 +9,7 @@ This framework opens Minfin and Kurs.com.ua in Chromium, collects USD and EUR bu
 - exchange-rate normalization for comma and dot decimal separators;
 - buy and sell rate comparison;
 - formatted Excel report with filtering and the `Minfin - Kurs.com.ua` difference;
+- automatic Excel and JSON test attachments managed by a Playwright fixture;
 - HTML, JSON, and Allure reporters;
 - clear error reporting when a source returns a Cloudflare or Access Denied page.
 
@@ -30,6 +31,13 @@ To validate the TypeScript code without starting a browser, run:
 npm run build
 ```
 
+Run only the domain unit tests or the live website scenario:
+
+```bash
+npm run test:unit
+npm run test:e2e
+```
+
 ## Configuration
 
 The source URLs and output filename can be overridden with environment variables:
@@ -45,12 +53,15 @@ The `.env` file is excluded from Git.
 ## Project Structure
 
 ```text
-tests/       End-to-end scenarios and assertions
-pages/       Page Objects and source-specific locators
-helpers/     Comparison, Excel, logging, and configuration utilities
-types/       Shared TypeScript models
+domain/      Business models, source contracts, and pure comparison rules
+services/    Application-level comparison orchestration
+pages/       Playwright Page Objects and source-specific locators
+reporters/   Excel output generation
+fixtures/    Playwright dependency composition and test artifacts
+helpers/     Environment, logging, and report utilities
+tests/       End-to-end scenarios and domain unit tests
 ```
 
 ## Adding Another Exchange-Rate Source
 
-Create a Page Object that returns an array of `CurrencyRate` objects. The comparison and Excel-reporting logic is independent of the source website's HTML structure, so it can be reused without modification.
+Implement the `ExchangeRateSource` contract for the new website. The domain comparison service and Excel reporter are independent of Playwright locators and the source website's HTML structure, so they can be reused without modification.

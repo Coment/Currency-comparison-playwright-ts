@@ -1,21 +1,25 @@
 import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { CurrencyCode, CurrencyRate } from '../types/currency';
-import { parseRate } from '../helpers/currencyComparison';
+import { CurrencyCode } from '../domain/models/Currency';
+import { ExchangeRate } from '../domain/models/ExchangeRate';
+import { ExchangeRateSource } from '../domain/ports/ExchangeRateSource';
 import { kursUrl } from '../helpers/envVars';
 
-export class KursComUaPage extends BasePage {
+export class KursComUaPage extends BasePage implements ExchangeRateSource {
+  readonly name = 'Kurs.com.ua';
+
   constructor(page: Page) {
     super(page);
   }
 
-  async open(): Promise<void> {
+  private async open(): Promise<void> {
     await this.goto(kursUrl);
     await this.assertPageIsAvailable('Kurs.com.ua');
   }
 
-  async getRates(currencies: CurrencyCode[]): Promise<CurrencyRate[]> {
-    const rates: CurrencyRate[] = [];
+  async collectRates(currencies: CurrencyCode[]): Promise<ExchangeRate[]> {
+    await this.open();
+    const rates: ExchangeRate[] = [];
 
     for (const currency of currencies) {
       const row = this.page
@@ -27,11 +31,11 @@ export class KursComUaPage extends BasePage {
       const cells = row.locator('td');
 
       rates.push({
-        source: 'Kurs.com.ua',
+        source: this.name,
         currency,
-        buy: parseRate(await this.readFirstNumber(cells.nth(1))),
-        sell: parseRate(await this.readFirstNumber(cells.nth(2))),
-        collectedAt: new Date().toISOString(),
+        buy: this.parseRate(await this.readFirstNumber(cells.nth(1))),
+        sell: this.parseRate(await this.readFirstNumber(cells.nth(2))),
+        collectedAt: new Date(),
       });
     }
 
