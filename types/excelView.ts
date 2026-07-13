@@ -3,6 +3,6 @@ export interface CurrencyRateData {
   minfinRate: number;
   kursRate: number;
   difference: number;
-  rateType: string;
+  rateType: 'buy' | 'sell';
   timestamp: string;
 }

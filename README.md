@@ -1,87 +1,54 @@
-# currency-comparison-playwright-ts
+# Currency comparison — Playwright + TypeScript
 
-This is an automated testing framework built with Playwright and TypeScript. It compares currency exchange rates (USD and EUR) between two financial websites. The project supports both UI and API testing. There is also optional support for Excel-based reporting and mock API stubs.
+Фреймворк відкриває Minfin і Kurs.com.ua у Chromium, отримує курси купівлі та продажу USD/EUR, порівнює їх і записує результат у `output.xlsx`.
 
-## Features
+## Що вже реалізовано
 
-- Compares currency exchange rates between two sources
-- UI automation using Playwright
-- API testing with optional mocking
-- Excel reporting of rate differences
-- Written in TypeScript with Playwright Test Runner
-- Page Object Model structure
-- Allure reporting support
+- Playwright Test + TypeScript;
+- Page Object Model для Minfin і Kurs.com.ua;
+- нормалізація значень із комою або крапкою як десятковим роздільником;
+- порівняння курсів купівлі та продажу;
+- Excel-звіт із фільтром, форматуванням і різницею `Minfin - Kurs.com.ua`;
+- HTML, JSON та Allure reporters;
+- зрозуміла помилка, якщо джерело повертає Cloudflare/Access Denied.
 
-## Tech Stack
+## Запуск
 
-- Playwright
-- TypeScript
-- Node.js
-- ExcelJS
-- Axios or node-fetch (for API tests)
-- Allure (optional)
+Потрібен Node.js 20 або новіший.
 
-## Getting Started
-
-Install dependencies:
-
-```
-npm install
+```bash
+npm ci
+npx playwright install chromium
+npm test
 ```
 
-Run the full test suite (UI + API):
+Після успішного тесту в корені проєкту з'явиться `output.xlsx` із чотирма рядками: купівля/продаж для USD та EUR.
 
-```
-npx playwright test
-```
+Перевірити TypeScript без запуску браузера:
 
-## Running Specific Tests
-
-UI tests only:
-
-```
-npx playwright test tests/ui
+```bash
+npm run build
 ```
 
-API tests only:
+## Налаштування
 
-```
-npx playwright test tests/api
-```
+Значення можна перевизначити змінними середовища:
 
-## Allure Reporting (CI-friendly)
-
-Generate Allure report after running tests:
-
-```
-npx allure generate allure-results --clean -o allure-report
+```dotenv
+MINFIN_URL=https://minfin.com.ua/ua/currency/
+KURS_URL=https://kurs.com.ua/
+EXCEL_OUTPUT_FILE=output.xlsx
 ```
 
-You can then serve the report locally if needed:
+`.env` не додається до Git.
 
+## Структура
+
+```text
+tests/       E2E-сценарії та перевірки
+pages/       Page Objects і локатори джерел
+helpers/     порівняння, Excel, логування та конфігурація
+types/       спільні TypeScript-моделі
 ```
-npx allure open allure-report
-```
 
-In CI/CD, publish the `allure-report/` folder as an artifact or host it as static content.
-
-## Project Structure
-
-- `tests/` – contains UI and API test files
-- `pages/` – Page Object Model classes
-- `helpers/` – utility functions
-- `mocks/` – mock API responses (if used)
-- `utils/` – Excel logic or shared modules
-- `.gitignore` – ignores logs, reports, node_modules, etc.
-- `playwright.config.ts` – Playwright configuration file
-- `README.md` – this file
-
-## Notes
-
-- Do not push `.env`, `allure-results/`, or Excel output files.
-- Uses Page Object Model for UI tests.
-- Can be extended for more currencies or different data providers.
-
-## Status
-
-This project is a work in progress. Suggestions and improvements are welcome.
+Щоб додати новий банк або сайт, потрібно створити Page Object, який повертає масив `CurrencyRate`. Логіка порівняння та Excel-звіту від HTML нового джерела не залежить.

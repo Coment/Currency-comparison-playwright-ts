@@ -7,8 +7,8 @@ export class BasePage {
     this.page = page;
   }
 
-  async goto(url: string) {
-    await this.page.goto(url);
+  async goto(url: string): Promise<void> {
+    await this.page.goto(url, { waitUntil: 'domcontentloaded' });
   }
 
   async waitForTitle(title: string) {
@@ -17,5 +17,28 @@ export class BasePage {
 
   getTitleLocator(): Locator {
     return this.page.locator('title');
+  }
+
+  protected async assertPageIsAvailable(source: string): Promise<void> {
+    const title = await this.page.title();
+    const bodyText = await this.page.locator('body').innerText().catch(() => '');
+
+    if (/cloudflare|attention required|access denied/i.test(`${title} ${bodyText}`)) {
+      throw new Error(
+        `${source} blocked the automated browser request. ` +
+        'Try again from an allowed network or configure another exchange-rate source.'
+      );
+    }
+  }
+
+  protected async readFirstNumber(locator: Locator): Promise<string> {
+    const text = await locator.innerText();
+    const match = text.replace(/\u00a0/g, ' ').match(/-?\d[\d\s]*(?:[.,]\d+)?/);
+
+    if (!match) {
+      throw new Error(`No numeric exchange rate found in: "${text.trim()}"`);
+    }
+
+    return match[0];
   }
 }

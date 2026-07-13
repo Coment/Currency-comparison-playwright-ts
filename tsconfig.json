@@ -10,5 +10,6 @@
     "skipLibCheck": true,
     "moduleResolution": "node"
   },
-  "include": ["tests/**/*.ts"]
+  "include": ["tests/**/*.ts", "pages/**/*.ts", "helpers/**/*.ts", "types/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

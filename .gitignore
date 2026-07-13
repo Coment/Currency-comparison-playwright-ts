@@ -41,3 +41,8 @@ allure-report/
 # Coverage
 coverage/
 .nyc_output/
+
+# Generated reports
+output.xlsx
+report.json
+logs.txt

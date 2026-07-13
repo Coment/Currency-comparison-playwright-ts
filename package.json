@@ -13,7 +13,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Playwright TypeScript framework for comparing currency exchange rates and exporting them to Excel",
   "devDependencies": {
     "@cucumber/cucumber": "^12.0.0",
     "@playwright/test": "^1.54.1",
