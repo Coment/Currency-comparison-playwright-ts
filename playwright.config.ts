@@ -1,4 +1,12 @@
 import { defineConfig, devices } from '@playwright/test';
+import { defineBddConfig } from 'playwright-bdd';
+
+const bddTestDir = defineBddConfig({
+  features: 'features/**/*.feature',
+  steps: ['features/steps/**/*.ts', 'fixtures/testFixtures.ts'],
+  outputDir: '.features-gen',
+  missingSteps: 'fail-on-gen',
+});
 
 /**
  * Read environment variables from file.
@@ -12,7 +20,6 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -39,8 +46,9 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-    headless: true,
+    //trace: 'on-first-retry',
+    trace: 'on',
+    headless: false,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },
@@ -48,9 +56,20 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
+      name: 'unit',
+      testDir: './tests/unit',
+    },
+    {
+      name: 'bdd-chromium',
+      testDir: bddTestDir,
+      grep: /@e2e/,
       use: { ...devices['Desktop Chrome'] },
-    }
+    },
+    {
+      name: 'api',
+      testDir: bddTestDir,
+      grep: /@api/,
+    },
 
     // {
     //   name: 'firefox',

@@ -1,4 +1,6 @@
-import { test as base, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
+import { test as base } from 'playwright-bdd';
+import { NbuApiClient, NbuApiResponse } from '../api/NbuApiClient';
 import { CurrencyCode } from '../domain/models/Currency';
 import { CurrencyComparison } from '../domain/models/CurrencyComparison';
 import { ExchangeRateSource } from '../domain/ports/ExchangeRateSource';
@@ -13,11 +15,35 @@ interface CurrencyComparisonRunner {
   compare(currencies: CurrencyCode[]): Promise<CurrencyComparison[]>;
 }
 
+interface ComparisonScenarioState {
+  currencies: CurrencyCode[];
+  result?: CurrencyComparison[];
+}
+
+interface NbuApiScenarioState {
+  response?: NbuApiResponse;
+}
+
 interface TestFixtures {
   currencyComparison: CurrencyComparisonRunner;
+  comparisonScenario: ComparisonScenarioState;
+  nbuApiClient: NbuApiClient;
+  nbuApiScenario: NbuApiScenarioState;
 }
 
 export const test = base.extend<TestFixtures>({
+  comparisonScenario: async ({}, use) => {
+    await use({ currencies: [] });
+  },
+
+  nbuApiScenario: async ({}, use) => {
+    await use({});
+  },
+
+  nbuApiClient: async ({ request }, use) => {
+    await use(new NbuApiClient(request));
+  },
+
   currencyComparison: async ({ page }, use, testInfo) => {
     const minfinSource = withStep(
       new MinFinPage(page),

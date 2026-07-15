@@ -11,7 +11,9 @@
     "moduleResolution": "node"
   },
   "include": [
+    "api/**/*.ts",
     "domain/**/*.ts",
+    "features/**/*.ts",
     "fixtures/**/*.ts",
     "helpers/**/*.ts",
     "pages/**/*.ts",

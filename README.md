@@ -5,6 +5,8 @@ This framework opens Minfin and Kurs.com.ua in Chromium, collects USD and EUR bu
 ## Features
 
 - Playwright Test with TypeScript;
+- executable BDD scenarios written in Gherkin with `playwright-bdd`;
+- parameterized API tests for the official NBU exchange-rate endpoint;
 - Page Object Model implementation for Minfin and Kurs.com.ua;
 - exchange-rate normalization for comma and dot decimal separators;
 - buy and sell rate comparison;
@@ -23,6 +25,8 @@ npx playwright install chromium
 npm test
 ```
 
+`npm test` generates native Playwright tests from the `.feature` files and then runs the UI BDD, API BDD, and unit-test projects.
+
 After a successful test run, an `output.xlsx` file is created in the project root. It contains four data rows: buy and sell rates for USD and EUR.
 
 The same comparison is printed as a readable text summary in the terminal and attached to the Playwright HTML report together with the JSON data and Excel file. Runtime logs and generated reports are test artifacts and are not committed to the repository.
@@ -33,12 +37,36 @@ To validate the TypeScript code without starting a browser, run:
 npm run build
 ```
 
-Run only the domain unit tests or the live website scenario:
+Run only the domain unit tests, the live website scenario, or the API scenarios:
 
 ```bash
 npm run test:unit
 npm run test:e2e
+npm run test:api
 ```
+
+The `bdd-chromium` project runs scenarios tagged with `@e2e`, while the `api` project runs scenarios tagged with `@api`.
+
+Generate Playwright tests from Gherkin without running them:
+
+```bash
+npm run bddgen
+```
+
+Generated files are written to `.features-gen/` and are excluded from Git.
+
+## BDD Scenario
+
+The currencies used by the acceptance test are configured directly in `features/currencyComparison.feature`:
+
+```gherkin
+Given the following currencies are selected:
+  | currency |
+  | USD      |
+  | EUR      |
+```
+
+The step definitions only orchestrate the existing Playwright fixtures and application service. Page locators, comparison rules, and report generation remain outside the Gherkin layer.
 
 ## Configuration
 
@@ -56,12 +84,14 @@ The `.env` file is excluded from Git.
 
 ```text
 domain/      Business models, source contracts, and pure comparison rules
+api/         HTTP clients and API response contracts
 services/    Application-level comparison orchestration
 pages/       Playwright Page Objects and source-specific locators
-reporters/   Excel output generation
+reporters/   Excel and human-readable output generation
 fixtures/    Playwright dependency composition and test artifacts
-helpers/     Environment, logging, and report utilities
-tests/       End-to-end scenarios and domain unit tests
+features/    Gherkin scenarios and their step definitions
+helpers/     Environment and report utilities
+tests/       Domain and application unit tests
 ```
 
 ## Adding Another Exchange-Rate Source
