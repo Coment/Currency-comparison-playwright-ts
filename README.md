@@ -9,7 +9,7 @@ This framework opens Minfin and Kurs.com.ua in Chromium, collects USD and EUR bu
 - exchange-rate normalization for comma and dot decimal separators;
 - buy and sell rate comparison;
 - formatted Excel report with filtering and the `Minfin - Kurs.com.ua` difference;
-- automatic Excel and JSON test attachments managed by a Playwright fixture;
+- automatic text summary, JSON, and Excel test attachments managed by a Playwright fixture;
 - HTML, JSON, and Allure reporters;
 - clear error reporting when a source returns a Cloudflare or Access Denied page.
 
@@ -24,6 +24,8 @@ npm test
 ```
 
 After a successful test run, an `output.xlsx` file is created in the project root. It contains four data rows: buy and sell rates for USD and EUR.
+
+The same comparison is printed as a readable text summary in the terminal and attached to the Playwright HTML report together with the JSON data and Excel file. Runtime logs and generated reports are test artifacts and are not committed to the repository.
 
 To validate the TypeScript code without starting a browser, run:
 
