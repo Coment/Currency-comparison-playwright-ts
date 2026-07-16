@@ -23,6 +23,7 @@ Thumbs.db
 .env
 .env.local
 .env.*
+!.env.example
 
 # Playwright
 /test-results/
@@ -35,6 +36,7 @@ Thumbs.db
 # Allure
 allure-results/
 allure-report/
+ai-analysis/
 
 # VSCode
 .vscode/

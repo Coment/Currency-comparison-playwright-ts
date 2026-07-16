@@ -1,5 +1,7 @@
 import { expect } from '@playwright/test';
 import { test as base } from 'playwright-bdd';
+import { analyzeTestFailure } from '../analysis/analyzeTestFailure';
+import { BrowserFailureEvidence } from '../analysis/BrowserFailureEvidence';
 import { NbuApiClient, NbuApiResponse } from '../api/NbuApiClient';
 import { CurrencyCode } from '../domain/models/Currency';
 import { CurrencyComparison } from '../domain/models/CurrencyComparison';
@@ -25,6 +27,7 @@ interface NbuApiScenarioState {
 }
 
 interface TestFixtures {
+  aiFailureAnalysis: void;
   currencyComparison: CurrencyComparisonRunner;
   comparisonScenario: ComparisonScenarioState;
   nbuApiClient: NbuApiClient;
@@ -32,6 +35,11 @@ interface TestFixtures {
 }
 
 export const test = base.extend<TestFixtures>({
+  aiFailureAnalysis: [async ({}, use, testInfo) => {
+    await use();
+    await analyzeTestFailure(testInfo);
+  }, { auto: true, timeout: 45_000 }],
+
   comparisonScenario: async ({}, use) => {
     await use({ currencies: [] });
   },
@@ -45,6 +53,7 @@ export const test = base.extend<TestFixtures>({
   },
 
   currencyComparison: async ({ page }, use, testInfo) => {
+    const browserFailureEvidence = new BrowserFailureEvidence(page);
     const minfinSource = withStep(
       new MinFinPage(page),
       'Collect rates from Minfin'
@@ -61,13 +70,26 @@ export const test = base.extend<TestFixtures>({
     const textReporter = new TextComparisonReporter();
     let result: CurrencyComparison[] | undefined;
 
-    await use({
-      compare: (currencies) =>
-        base.step('Compare exchange rates', async () => {
-          result = await service.compare(currencies);
-          return result;
-        }),
-    });
+    try {
+      await use({
+        compare: (currencies) =>
+          base.step('Compare exchange rates', async () => {
+            result = await service.compare(currencies);
+            return result;
+          }),
+      });
+    } finally {
+      try {
+        await browserFailureEvidence.attachIfFailed(testInfo);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.warn(
+          `[AI analysis] Browser evidence collection failed without affecting the test: ${message}`
+        );
+      } finally {
+        browserFailureEvidence.dispose();
+      }
+    }
 
     if (!result) return;
     const comparisonResult = result;

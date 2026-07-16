@@ -12,6 +12,7 @@ This framework opens Minfin and Kurs.com.ua in Chromium, collects USD and EUR bu
 - buy and sell rate comparison;
 - formatted Excel report with filtering and the `Minfin - Kurs.com.ua` difference;
 - automatic text summary, JSON, and Excel test attachments managed by a Playwright fixture;
+- opt-in AI-assisted failure analysis with structured recommendations;
 - HTML, JSON, and Allure reporters;
 - clear error reporting when a source returns a Cloudflare or Access Denied page.
 
@@ -80,10 +81,29 @@ EXCEL_OUTPUT_FILE=output.xlsx
 
 The `.env` file is excluded from Git.
 
+## AI-Assisted Failure Analysis
+
+AI analysis is disabled by default. Copy `.env.example` to `.env` and configure:
+
+```dotenv
+AI_ANALYSIS=true
+OPENAI_API_KEY=your_api_key
+OPENAI_MODEL=gpt-5.6-terra
+AI_ANALYSIS_INCLUDE_SCREENSHOT=false
+AI_ANALYSIS_TIMEOUT_MS=30000
+```
+
+The analyzer runs only after the final failed attempt. It collects the Playwright error, stack trace, test metadata, and sanitized text attachments. UI failures also attach console errors, failed requests, a screenshot, and an ARIA snapshot to the test report.
+
+Screenshots are sent to the model only when `AI_ANALYSIS_INCLUDE_SCREENSHOT=true`. Trace, video, Excel files, cookies, and environment files are never sent by the analyzer. Common credential patterns are redacted before analysis.
+
+The result is attached as Markdown and JSON. It is advisory only: the analyzer never edits files, retries tests, or changes the test status.
+
 ## Project Structure
 
 ```text
 domain/      Business models, source contracts, and pure comparison rules
+analysis/    Failure evidence collection and AI-assisted diagnostics
 api/         HTTP clients and API response contracts
 services/    Application-level comparison orchestration
 pages/       Playwright Page Objects and source-specific locators
