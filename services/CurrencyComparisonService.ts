@@ -7,7 +7,7 @@ import { compareExchangeRates } from '../domain/services/compareExchangeRates';
 export class CurrencyComparisonService {
   constructor(
     private readonly firstSource: ExchangeRateSource,
-    private readonly secondSource: ExchangeRateSource
+    private readonly secondSource: ExchangeRateSource,
   ) {}
 
   async compare(currencies: CurrencyCode[]): Promise<CurrencyComparison[]> {
@@ -38,7 +38,7 @@ function validateRequestedCurrencies(currencies: CurrencyCode[]): void {
 function validateSourceResponse(
   sourceName: string,
   requestedCurrencies: CurrencyCode[],
-  rates: ExchangeRate[]
+  rates: ExchangeRate[],
 ): void {
   const requested = new Set(requestedCurrencies);
   const received = new Set<CurrencyCode>();

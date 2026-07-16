@@ -27,6 +27,6 @@ USD buy:
 
 test('formats an empty result explicitly', () => {
   expect(new TextComparisonReporter().format([])).toBe(
-    'Currency comparison\n\nNo comparison data.'
+    'Currency comparison\n\nNo comparison data.',
   );
 });

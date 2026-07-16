@@ -5,7 +5,7 @@ import { ExchangeRate } from '../models/ExchangeRate';
 export function compareExchangeRates(
   firstRates: ExchangeRate[],
   secondRates: ExchangeRate[],
-  comparedAt: Date = new Date()
+  comparedAt: Date = new Date(),
 ): CurrencyComparison[] {
   const firstRatesByCurrency = indexRates(firstRates, 'first source');
   const secondRatesByCurrency = indexRates(secondRates, 'second source');
@@ -20,9 +20,7 @@ export function compareExchangeRates(
     const secondRate = secondRatesByCurrency.get(firstRate.currency);
 
     if (!secondRate) {
-      throw new Error(
-        `Missing ${firstRate.currency} exchange rate from the second source`
-      );
+      throw new Error(`Missing ${firstRate.currency} exchange rate from the second source`);
     }
 
     return RATE_TYPES.map((rateType): CurrencyComparison => {
@@ -43,10 +41,7 @@ export function compareExchangeRates(
   });
 }
 
-function indexRates(
-  rates: ExchangeRate[],
-  sourceLabel: string
-): Map<CurrencyCode, ExchangeRate> {
+function indexRates(rates: ExchangeRate[], sourceLabel: string): Map<CurrencyCode, ExchangeRate> {
   const ratesByCurrency = new Map<CurrencyCode, ExchangeRate>();
 
   for (const rate of rates) {
@@ -67,9 +62,7 @@ function validateRate(rate: ExchangeRate): void {
     const value = rate[rateType];
 
     if (!Number.isFinite(value) || value <= 0) {
-      throw new Error(
-        `Invalid ${rate.currency} ${rateType} rate from ${rate.source}: ${value}`
-      );
+      throw new Error(`Invalid ${rate.currency} ${rateType} rate from ${rate.source}: ${value}`);
     }
   }
 }

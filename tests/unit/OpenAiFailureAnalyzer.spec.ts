@@ -1,8 +1,5 @@
 import { expect, test } from '@playwright/test';
-import {
-  FetchLike,
-  OpenAiFailureAnalyzer,
-} from '../../analysis/OpenAiFailureAnalyzer';
+import { FetchLike, OpenAiFailureAnalyzer } from '../../analysis/OpenAiFailureAnalyzer';
 import { FailureAnalysisInput } from '../../analysis/FailureAnalysis';
 
 test('requests and parses a structured failure recommendation', async () => {
@@ -15,7 +12,7 @@ test('requests and parses a structured failure recommendation', async () => {
     suspectedFiles: ['pages/MinFin.ts'],
     requiresHumanReview: true,
   };
-  let requestBody: any;
+  let requestBody: unknown;
 
   const fakeFetch: FetchLike = async (_input, init) => {
     requestBody = JSON.parse(String(init?.body));
@@ -37,7 +34,7 @@ test('requests and parses a structured failure recommendation', async () => {
       {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
-      }
+      },
     );
   };
   const analyzer = new OpenAiFailureAnalyzer(
@@ -45,16 +42,22 @@ test('requests and parses a structured failure recommendation', async () => {
       apiKey: 'test-key',
       model: 'test-model',
     },
-    fakeFetch
+    fakeFetch,
   );
 
   const result = await analyzer.analyze(failureInput());
 
   expect(result).toEqual(recommendation);
-  expect(requestBody.model).toBe('test-model');
-  expect(requestBody.store).toBe(false);
-  expect(requestBody.text.format.type).toBe('json_schema');
-  expect(requestBody.text.format.strict).toBe(true);
+  expect(requestBody).toMatchObject({
+    model: 'test-model',
+    store: false,
+    text: {
+      format: {
+        type: 'json_schema',
+        strict: true,
+      },
+    },
+  });
 });
 
 function failureInput(): FailureAnalysisInput {

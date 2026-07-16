@@ -18,16 +18,14 @@ Given(
 
       return currency as CurrencyCode;
     });
-  }
+  },
 );
 
 When(
   'I compare rates from Minfin and Kurs.com.ua',
   async ({ comparisonScenario, currencyComparison }) => {
-    comparisonScenario.result = await currencyComparison.compare(
-      comparisonScenario.currencies
-    );
-  }
+    comparisonScenario.result = await currencyComparison.compare(comparisonScenario.currencies);
+  },
 );
 
 Then(
@@ -35,9 +33,7 @@ Then(
   async ({ comparisonScenario }) => {
     const result = getComparisonResult(comparisonScenario.result);
 
-    expect(result).toHaveLength(
-      comparisonScenario.currencies.length * RATE_TYPES.length
-    );
+    expect(result).toHaveLength(comparisonScenario.currencies.length * RATE_TYPES.length);
 
     for (const currency of comparisonScenario.currencies) {
       const rateTypes = result
@@ -46,24 +42,19 @@ Then(
 
       expect(rateTypes).toEqual(RATE_TYPES);
     }
-  }
+  },
 );
 
-Then(
-  'every collected exchange rate should be positive',
-  async ({ comparisonScenario }) => {
-    const result = getComparisonResult(comparisonScenario.result);
+Then('every collected exchange rate should be positive', async ({ comparisonScenario }) => {
+  const result = getComparisonResult(comparisonScenario.result);
 
-    for (const comparison of result) {
-      expect(comparison.firstRate).toBeGreaterThan(0);
-      expect(comparison.secondRate).toBeGreaterThan(0);
-    }
+  for (const comparison of result) {
+    expect(comparison.firstRate).toBeGreaterThan(0);
+    expect(comparison.secondRate).toBeGreaterThan(0);
   }
-);
+});
 
-function getComparisonResult(
-  result: CurrencyComparison[] | undefined
-): CurrencyComparison[] {
+function getComparisonResult(result: CurrencyComparison[] | undefined): CurrencyComparison[] {
   if (!result) {
     throw new Error('Currency comparison has not been executed');
   }

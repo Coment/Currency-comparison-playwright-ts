@@ -32,13 +32,10 @@ export default defineConfig({
 
   timeout: 60000, // 60 seconds for each test
   expect: {
-    timeout: 3000,  // 3 seconds for expect assertions
-  }, 
+    timeout: 3000, // 3 seconds for expect assertions
+  },
   /* Use the default reporter ['allure-playwright'],*/
-  reporter: [
-    ['html'],
-    ['allure-playwright'],
-  ],
+  reporter: [['html'], ['allure-playwright']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */

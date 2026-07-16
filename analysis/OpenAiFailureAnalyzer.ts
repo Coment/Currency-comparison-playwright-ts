@@ -12,10 +12,7 @@ interface OpenAiFailureAnalyzerOptions {
   timeoutMs?: number;
 }
 
-export type FetchLike = (
-  input: string | URL | Request,
-  init?: RequestInit
-) => Promise<Response>;
+export type FetchLike = (input: string | URL | Request, init?: RequestInit) => Promise<Response>;
 
 const SYSTEM_PROMPT = `
 You are a senior test-automation engineer diagnosing a failed Playwright test.
@@ -72,7 +69,7 @@ export class OpenAiFailureAnalyzer implements FailureAnalyzer {
 
   constructor(
     private readonly options: OpenAiFailureAnalyzerOptions,
-    private readonly fetchImpl: FetchLike = fetch
+    private readonly fetchImpl: FetchLike = fetch,
   ) {
     this.timeoutMs = options.timeoutMs ?? 30_000;
   }
@@ -121,7 +118,7 @@ export class OpenAiFailureAnalyzer implements FailureAnalyzer {
     if (!response.ok) {
       const responseText = sanitizeAndTruncate(await response.text(), 500);
       throw new Error(
-        `OpenAI failure analysis request returned ${response.status}: ${responseText}`
+        `OpenAI failure analysis request returned ${response.status}: ${responseText}`,
       );
     }
 
@@ -164,9 +161,7 @@ function isFailureRecommendation(value: unknown): value is FailureRecommendation
 
   return (
     typeof value.category === 'string' &&
-    FAILURE_CATEGORIES.includes(
-      value.category as (typeof FAILURE_CATEGORIES)[number]
-    ) &&
+    FAILURE_CATEGORIES.includes(value.category as (typeof FAILURE_CATEGORIES)[number]) &&
     typeof value.confidence === 'number' &&
     value.confidence >= 0 &&
     value.confidence <= 1 &&

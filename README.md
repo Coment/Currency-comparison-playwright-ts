@@ -18,7 +18,7 @@ This framework opens Minfin and Kurs.com.ua in Chromium, collects USD and EUR bu
 
 ## Getting Started
 
-Node.js 20 or later is recommended.
+Node.js 20.19+, 22.13+, or 24+ is required by the code-quality toolchain.
 
 ```bash
 npm ci
@@ -37,6 +37,18 @@ To validate the TypeScript code without starting a browser, run:
 ```bash
 npm run build
 ```
+
+Check code quality or apply automatic fixes and formatting:
+
+```bash
+npm run lint
+npm run lint:fix
+npm run format:check
+npm run format
+```
+
+Husky runs `lint-staged` before each commit. Only staged JavaScript, TypeScript, JSON,
+Markdown, and YAML files are checked or formatted; browser and API tests remain explicit commands.
 
 Run only the domain unit tests, the live website scenario, or the API scenarios:
 

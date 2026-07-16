@@ -21,12 +21,15 @@ export class BasePage {
 
   protected async assertPageIsAvailable(source: string): Promise<void> {
     const title = await this.page.title();
-    const bodyText = await this.page.locator('body').innerText().catch(() => '');
+    const bodyText = await this.page
+      .locator('body')
+      .innerText()
+      .catch(() => '');
 
     if (/cloudflare|attention required|access denied/i.test(`${title} ${bodyText}`)) {
       throw new Error(
         `${source} blocked the automated browser request. ` +
-        'Try again from an allowed network or configure another exchange-rate source.'
+          'Try again from an allowed network or configure another exchange-rate source.',
       );
     }
   }

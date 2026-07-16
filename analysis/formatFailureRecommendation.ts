@@ -1,8 +1,6 @@
 import { FailureRecommendation } from './FailureAnalysis';
 
-export function formatFailureRecommendation(
-  recommendation: FailureRecommendation
-): string {
+export function formatFailureRecommendation(recommendation: FailureRecommendation): string {
   return [
     '# AI failure analysis',
     '',

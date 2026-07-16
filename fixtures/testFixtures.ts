@@ -35,10 +35,13 @@ interface TestFixtures {
 }
 
 export const test = base.extend<TestFixtures>({
-  aiFailureAnalysis: [async ({}, use, testInfo) => {
-    await use();
-    await analyzeTestFailure(testInfo);
-  }, { auto: true, timeout: 45_000 }],
+  aiFailureAnalysis: [
+    async ({}, use, testInfo) => {
+      await use();
+      await analyzeTestFailure(testInfo);
+    },
+    { auto: true, timeout: 45_000 },
+  ],
 
   comparisonScenario: async ({}, use) => {
     await use({ currencies: [] });
@@ -54,18 +57,9 @@ export const test = base.extend<TestFixtures>({
 
   currencyComparison: async ({ page }, use, testInfo) => {
     const browserFailureEvidence = new BrowserFailureEvidence(page);
-    const minfinSource = withStep(
-      new MinFinPage(page),
-      'Collect rates from Minfin'
-    );
-    const kursSource = withStep(
-      new KursComUaPage(page),
-      'Collect rates from Kurs.com.ua'
-    );
-    const service = new CurrencyComparisonService(
-      minfinSource,
-      kursSource
-    );
+    const minfinSource = withStep(new MinFinPage(page), 'Collect rates from Minfin');
+    const kursSource = withStep(new KursComUaPage(page), 'Collect rates from Kurs.com.ua');
+    const service = new CurrencyComparisonService(minfinSource, kursSource);
     const excelReporter = new ExcelComparisonReporter();
     const textReporter = new TextComparisonReporter();
     let result: CurrencyComparison[] | undefined;
@@ -84,7 +78,7 @@ export const test = base.extend<TestFixtures>({
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         console.warn(
-          `[AI analysis] Browser evidence collection failed without affecting the test: ${message}`
+          `[AI analysis] Browser evidence collection failed without affecting the test: ${message}`,
         );
       } finally {
         browserFailureEvidence.dispose();
@@ -120,13 +114,9 @@ export const test = base.extend<TestFixtures>({
 
 export { expect };
 
-function withStep(
-  source: ExchangeRateSource,
-  stepName: string
-): ExchangeRateSource {
+function withStep(source: ExchangeRateSource, stepName: string): ExchangeRateSource {
   return {
     name: source.name,
-    collectRates: (currencies) =>
-      base.step(stepName, () => source.collectRates(currencies)),
+    collectRates: (currencies) => base.step(stepName, () => source.collectRates(currencies)),
   };
 }

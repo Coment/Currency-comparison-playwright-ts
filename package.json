@@ -10,21 +10,38 @@
     "test:api": "npm run bddgen && playwright test --project=api",
     "test:unit": "playwright test --project=unit",
     "allure:report": "allure generate allure-results --clean -o allure-report && allure open allure-report",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier \"{analysis,api,domain,features/steps,fixtures,helpers,pages,reporters,services,tests}/**/*.ts\" \"*.{ts,js,mjs,cjs,json,md,yaml,yml}\" --write",
+    "format:check": "prettier \"{analysis,api,domain,features/steps,fixtures,helpers,pages,reporters,services,tests}/**/*.ts\" \"*.{ts,js,mjs,cjs,json,md,yaml,yml}\" --check",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "Playwright TypeScript framework for comparing currency exchange rates and exporting them to Excel",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.54.1",
     "@types/node": "^24.0.14",
     "allure-playwright": "^3.3.2",
+    "eslint": "^10.7.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.10.5",
+    "globals": "^17.7.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "playwright": "^1.54.1",
     "playwright-bdd": "^9.2.0",
+    "prettier": "^3.9.5",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.64.0"
   },
   "dependencies": {
     "dotenv": "^17.2.1",

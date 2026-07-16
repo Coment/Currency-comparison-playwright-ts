@@ -1,8 +1,5 @@
 import { expect, test } from '@playwright/test';
-import {
-  redactSensitiveData,
-  sanitizeAndTruncate,
-} from '../../analysis/redactSensitiveData';
+import { redactSensitiveData, sanitizeAndTruncate } from '../../analysis/redactSensitiveData';
 
 test('redacts common credentials before failure evidence is analyzed', () => {
   const input = [
@@ -24,10 +21,7 @@ test('redacts common credentials before failure evidence is analyzed', () => {
 });
 
 test('truncates oversized evidence after redacting it', () => {
-  const result = sanitizeAndTruncate(
-    `token=private ${'x'.repeat(100)}`,
-    20
-  );
+  const result = sanitizeAndTruncate(`token=private ${'x'.repeat(100)}`, 20);
 
   expect(result).not.toContain('private');
   expect(result).toContain('...[truncated]');

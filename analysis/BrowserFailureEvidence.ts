@@ -29,7 +29,7 @@ export class BrowserFailureEvidence {
           requestFailures: this.requestFailures,
         },
         null,
-        2
+        2,
       ),
       contentType: 'application/json',
     });
@@ -44,9 +44,7 @@ export class BrowserFailureEvidence {
     }
 
     try {
-      const ariaSnapshot = await this.page
-        .locator('body')
-        .ariaSnapshot({ timeout: 3_000 });
+      const ariaSnapshot = await this.page.locator('body').ariaSnapshot({ timeout: 3_000 });
 
       await testInfo.attach('ARIA snapshot', {
         body: sanitizeAndTruncate(ariaSnapshot, 20_000),
@@ -66,10 +64,7 @@ export class BrowserFailureEvidence {
   private readonly onConsole = (message: ConsoleMessage): void => {
     if (message.type() !== 'error' && message.type() !== 'warning') return;
 
-    this.pushLimited(
-      this.consoleErrors,
-      `${message.type()}: ${message.text()}`
-    );
+    this.pushLimited(this.consoleErrors, `${message.type()}: ${message.text()}`);
   };
 
   private readonly onPageError = (error: Error): void => {
@@ -80,7 +75,7 @@ export class BrowserFailureEvidence {
     const failure = request.failure();
     this.pushLimited(
       this.requestFailures,
-      `${request.method()} ${request.url()}: ${failure?.errorText ?? 'unknown error'}`
+      `${request.method()} ${request.url()}: ${failure?.errorText ?? 'unknown error'}`,
     );
   };
 

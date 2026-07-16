@@ -18,7 +18,7 @@ export class TextComparisonReporter {
         `  ${comparison.firstSource}: ${formatRate(comparison.firstRate)}`,
         `  ${comparison.secondSource}: ${formatRate(comparison.secondRate)}`,
         `  Difference: ${formatDifference(comparison.difference)}`,
-        ''
+        '',
       );
     }
 

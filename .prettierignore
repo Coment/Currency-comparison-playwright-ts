@@ -1,0 +1,18 @@
+.features-gen/
+.pdf_tools
+.pdf_tools/**
+ai-analysis/
+allure-report/
+allure-results/
+dist/
+node_modules/
+playwright-report/
+test-results/
+
+# Gherkin formatting and generated/binary artifacts are handled separately.
+*.feature
+*.pdf
+*.png
+*.webm
+*.xlsx
+*.zip

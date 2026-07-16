@@ -19,13 +19,10 @@ const DEFAULT_NBU_API_URL = 'https://bank.gov.ua';
 export class NbuApiClient {
   constructor(
     private readonly request: APIRequestContext,
-    private readonly baseUrl = process.env.NBU_API_URL ?? DEFAULT_NBU_API_URL
+    private readonly baseUrl = process.env.NBU_API_URL ?? DEFAULT_NBU_API_URL,
   ) {}
 
-  async getExchangeRate(
-    currency: string,
-    date: string
-  ): Promise<NbuApiResponse> {
+  async getExchangeRate(currency: string, date: string): Promise<NbuApiResponse> {
     const response = await this.request.get(
       `${this.baseUrl}/NBUStatService/v1/statdirectory/exchangenew`,
       {
@@ -34,7 +31,7 @@ export class NbuApiClient {
           valcode: currency,
           date,
         },
-      }
+      },
     );
 
     const contentType = response.headers()['content-type'] ?? '';

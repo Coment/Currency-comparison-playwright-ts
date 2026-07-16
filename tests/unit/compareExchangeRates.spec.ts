@@ -6,10 +6,7 @@ const collectedAt = new Date('2026-01-01T11:00:00Z');
 const comparedAt = new Date('2026-01-01T12:00:00Z');
 
 test('compares buy and sell rates, rounds differences, and preserves first-source order', () => {
-  const firstRates = [
-    rate('First bank', 'USD', 40.1234, 40.5),
-    rate('First bank', 'EUR', 45, 46),
-  ];
+  const firstRates = [rate('First bank', 'USD', 40.1234, 40.5), rate('First bank', 'EUR', 45, 46)];
   const secondRates = [
     rate('Second bank', 'EUR', 44.8, 46.1),
     rate('Second bank', 'USD', 40, 40.7),
@@ -26,19 +23,16 @@ test('compares buy and sell rates, rounds differences, and preserves first-sourc
 });
 
 test('fails when the second source has no matching currency', () => {
-  expect(() =>
-    compareExchangeRates([rate('First bank', 'EUR', 45, 46)], [])
-  ).toThrow('Missing EUR exchange rate from the second source');
+  expect(() => compareExchangeRates([rate('First bank', 'EUR', 45, 46)], [])).toThrow(
+    'Missing EUR exchange rate from the second source',
+  );
 });
 
 test('fails when a source returns a currency more than once', () => {
-  const duplicateRates = [
-    rate('First bank', 'USD', 40, 41),
-    rate('First bank', 'USD', 40.1, 41.1),
-  ];
+  const duplicateRates = [rate('First bank', 'USD', 40, 41), rate('First bank', 'USD', 40.1, 41.1)];
 
   expect(() => compareExchangeRates(duplicateRates, [])).toThrow(
-    'Duplicate USD exchange rate in first source'
+    'Duplicate USD exchange rate in first source',
   );
 });
 
@@ -47,8 +41,8 @@ test('rejects non-finite, zero, and negative rates', () => {
     expect(() =>
       compareExchangeRates(
         [rate('First bank', 'USD', invalidValue, 41)],
-        [rate('Second bank', 'USD', 40, 41)]
-      )
+        [rate('Second bank', 'USD', 40, 41)],
+      ),
     ).toThrow('Invalid USD buy rate from First bank');
   }
 });
@@ -57,7 +51,7 @@ function rate(
   source: string,
   currency: ExchangeRate['currency'],
   buy: number,
-  sell: number
+  sell: number,
 ): ExchangeRate {
   return { source, currency, buy, sell, collectedAt };
 }
@@ -67,7 +61,7 @@ function comparison(
   rateType: 'buy' | 'sell',
   firstRate: number,
   secondRate: number,
-  difference: number
+  difference: number,
 ) {
   return {
     currency,

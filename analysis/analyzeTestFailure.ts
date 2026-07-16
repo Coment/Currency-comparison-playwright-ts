@@ -15,9 +15,9 @@ interface AnalyzeTestFailureOptions {
 
 export async function analyzeTestFailure(
   testInfo: TestInfo,
-  options: AnalyzeTestFailureOptions = {}
+  options: AnalyzeTestFailureOptions = {},
 ): Promise<void> {
-  const enabled = options.enabled ?? (process.env.AI_ANALYSIS === 'true');
+  const enabled = options.enabled ?? process.env.AI_ANALYSIS === 'true';
   if (!enabled) return;
   if (!isUnexpectedFailure(testInfo)) return;
   if (testInfo.retry < testInfo.project.retries) return;
@@ -28,8 +28,7 @@ export async function analyzeTestFailure(
   try {
     const input = await collectFailureAnalysisInput(
       testInfo,
-      options.includeScreenshot ??
-        (process.env.AI_ANALYSIS_INCLUDE_SCREENSHOT === 'true')
+      options.includeScreenshot ?? process.env.AI_ANALYSIS_INCLUDE_SCREENSHOT === 'true',
     );
     const recommendation = await analyzer.analyze(input);
     const markdown = formatFailureRecommendation(recommendation);
@@ -51,9 +50,7 @@ export async function analyzeTestFailure(
 function createOpenAiAnalyzer(): FailureAnalyzer | undefined {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    console.warn(
-      '[AI analysis] Skipped: OPENAI_API_KEY is not configured.'
-    );
+    console.warn('[AI analysis] Skipped: OPENAI_API_KEY is not configured.');
     return undefined;
   }
 

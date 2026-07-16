@@ -26,10 +26,7 @@ test('attaches advisory Markdown and JSON after a final unexpected failure', asy
     column: 3,
     errors: [{ message: 'Timeout while resolving locator' }],
     attachments: [],
-    attach: async (
-      name: string,
-      options: { body?: string | Buffer; contentType?: string }
-    ) => {
+    attach: async (name: string, options: { body?: string | Buffer; contentType?: string }) => {
       attached.push({ name, ...options });
     },
   } as unknown as TestInfo;

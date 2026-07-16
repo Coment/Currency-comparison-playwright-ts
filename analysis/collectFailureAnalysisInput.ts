@@ -8,7 +8,7 @@ const MAX_SCREENSHOT_SIZE = 5 * 1024 * 1024;
 
 export async function collectFailureAnalysisInput(
   testInfo: TestInfo,
-  includeScreenshot: boolean
+  includeScreenshot: boolean,
 ): Promise<FailureAnalysisInput> {
   const source = resolveSourceFile(testInfo.file);
   const attachments = [];
@@ -27,18 +27,11 @@ export async function collectFailureAnalysisInput(
     if (isTextAttachment(attachment.contentType)) {
       const content = await readAttachment(attachment);
       if (content) {
-        item.text = sanitizeAndTruncate(
-          content.toString('utf8'),
-          MAX_ATTACHMENT_TEXT_LENGTH
-        );
+        item.text = sanitizeAndTruncate(content.toString('utf8'), MAX_ATTACHMENT_TEXT_LENGTH);
       }
     }
 
-    if (
-      includeScreenshot &&
-      !screenshotDataUrl &&
-      isSupportedImage(attachment.contentType)
-    ) {
+    if (includeScreenshot && !screenshotDataUrl && isSupportedImage(attachment.contentType)) {
       const content = await readAttachment(attachment);
       if (content && content.length <= MAX_SCREENSHOT_SIZE) {
         screenshotDataUrl = `data:${attachment.contentType};base64,${content.toString('base64')}`;
@@ -120,9 +113,6 @@ async function readAttachment(attachment: {
   return undefined;
 }
 
-function sanitizeOptional(
-  value: string | undefined,
-  maxLength: number
-): string | undefined {
+function sanitizeOptional(value: string | undefined, maxLength: number): string | undefined {
   return value ? sanitizeAndTruncate(value, maxLength) : undefined;
 }

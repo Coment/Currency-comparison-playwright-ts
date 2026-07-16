@@ -9,8 +9,7 @@ const SECRET_PATTERNS: Array<{
     replacement: SECRET_VALUE,
   },
   {
-    pattern:
-      /(\b(?:authorization|proxy-authorization)\b["']?\s*[:=]\s*)(?:bearer\s+)?[^\s,;"']+/gi,
+    pattern: /(\b(?:authorization|proxy-authorization)\b["']?\s*[:=]\s*)(?:bearer\s+)?[^\s,;"']+/gi,
     replacement: `$1${SECRET_VALUE}`,
   },
   {
@@ -22,9 +21,8 @@ const SECRET_PATTERNS: Array<{
 
 export function redactSensitiveData(value: string): string {
   return SECRET_PATTERNS.reduce(
-    (redacted, { pattern, replacement }) =>
-      redacted.replace(pattern, replacement),
-    value
+    (redacted, { pattern, replacement }) => redacted.replace(pattern, replacement),
+    value,
   );
 }
 
