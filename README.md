@@ -13,7 +13,7 @@ This framework opens Minfin and Kurs.com.ua in Chromium, collects USD and EUR bu
 - formatted Excel report with filtering and the `Minfin - Kurs.com.ua` difference;
 - automatic text summary, JSON, and Excel test attachments managed by a Playwright fixture;
 - opt-in AI-assisted failure analysis with structured recommendations;
-- HTML, JSON, and Allure reporters;
+- HTML and Allure reporters;
 - clear error reporting when a source returns a Cloudflare or Access Denied page.
 
 ## Getting Started

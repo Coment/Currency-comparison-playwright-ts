@@ -47,5 +47,4 @@ coverage/
 
 # Generated reports
 output.xlsx
-report.json
 logs.txt

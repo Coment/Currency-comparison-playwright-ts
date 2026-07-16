@@ -3,14 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf .features-gen allure-results report.json output.xlsx",
+    "clean": "rimraf .features-gen allure-results output.xlsx",
     "bddgen": "bddgen",
     "test": "npm run clean && npm run bddgen && playwright test",
     "test:e2e": "npm run bddgen && playwright test --project=bdd-chromium",
     "test:api": "npm run bddgen && playwright test --project=api",
     "test:unit": "playwright test --project=unit",
-    "fail-report": "ts-node helpers/json_report.ts",
-    "test:full": "npm run test && npm run fail-report",
     "allure:report": "allure generate allure-results --clean -o allure-report && allure open allure-report",
     "build": "tsc"
   },
